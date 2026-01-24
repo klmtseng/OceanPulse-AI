@@ -1,0 +1,5 @@
+{
+  "name": "OceanPulse AI",
+  "description": "A real-time global ocean current tracking and analysis dashboard powered by Gemini AI. Visualizes major currents and provides environmental impact insights.",
+  "requestFramePermissions": []
+}
