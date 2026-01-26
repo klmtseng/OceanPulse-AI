@@ -5,9 +5,16 @@ export interface OceanCurrent {
   type: 'Warm' | 'Cold';
   avgSpeedKnots: number;
   avgTempCelsius: number;
+  depthRange: [number, number]; // Min and max depth in meters
   description: string;
   coordinates: [number, number]; // Lat, Lng for camera focus
   pathNodes: [number, number][]; // Simplified path for visualization
+}
+
+export interface HistoryDataPoint {
+  time: string;
+  speed: number;
+  temp: number;
 }
 
 export interface SimulationData {

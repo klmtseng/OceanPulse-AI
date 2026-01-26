@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { OceanCurrent, SimulationData } from '../types';
+import { OceanCurrent, SimulationData, HistoryDataPoint } from '../types';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 }
 
 const InfoPanel: React.FC<Props> = ({ current, simulationData }) => {
-  const [history, setHistory] = useState<any[]>([]);
+  const [history, setHistory] = useState<HistoryDataPoint[]>([]);
 
   useEffect(() => {
     setHistory(prev => {
@@ -70,7 +70,7 @@ const InfoPanel: React.FC<Props> = ({ current, simulationData }) => {
         <div className="bg-slate-800/50 p-3 rounded-xl border border-slate-700/50">
             <div className="text-slate-400 text-xs uppercase tracking-wider mb-1">Est. Depth</div>
             <div className="flex items-baseline gap-1">
-                <span className="text-2xl font-mono text-cyan-400">0 - 800</span>
+                <span className="text-2xl font-mono text-cyan-400">{current.depthRange[0]} - {current.depthRange[1]}</span>
                 <span className="text-xs text-slate-500">m</span>
             </div>
         </div>
