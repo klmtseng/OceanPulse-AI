@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import GlobeVisualization from './components/GlobeVisualization';
 import InfoPanel from './components/InfoPanel';
 import GeminiInsight from './components/GeminiInsight';
+import Header from './components/Header';
+import CurrentsList from './components/CurrentsList';
 import { MAJOR_CURRENTS } from './constants';
 import { OceanCurrent, SimulationData } from './types';
 
@@ -54,48 +56,14 @@ const App: React.FC = () => {
         />
       </div>
 
-      {/* Header Overlay */}
-      <div className="absolute top-0 left-0 w-full z-20 p-6 pointer-events-none">
-        <div className="flex justify-between items-start">
-            <div>
-                <h1 className="text-3xl font-bold tracking-tight text-white drop-shadow-lg">
-                    Ocean<span className="text-cyan-400">Pulse</span> AI
-                </h1>
-                <p className="text-cyan-200/80 text-sm font-light mt-1 max-w-md drop-shadow-md">
-                    Global Real-time Ocean Current Tracking & Environmental Analysis
-                </p>
-            </div>
-            
-            <div className="pointer-events-auto bg-slate-900/80 backdrop-blur-md rounded-full px-4 py-2 border border-slate-700 flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-                <span className="text-xs font-mono text-slate-300">SYSTEM ONLINE</span>
-            </div>
-        </div>
-      </div>
-
-      {/* Left Sidebar: Navigation (Currents List) */}
-      <div className="absolute left-6 top-32 z-20 w-64 bg-slate-900/70 backdrop-blur-md border border-slate-700/50 rounded-2xl overflow-hidden flex flex-col max-h-[calc(100vh-10rem)] transition-transform duration-300 -translate-x-full md:translate-x-0">
-         <div className="p-4 border-b border-slate-700/50 bg-slate-800/40">
-            <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest">Monitored Currents</h3>
-         </div>
-         <div className="overflow-y-auto custom-scrollbar flex-1">
-             {MAJOR_CURRENTS.map(current => (
-                 <button
-                    key={current.id}
-                    onClick={() => setSelectedCurrent(current)}
-                    className={`w-full text-left p-4 border-b border-slate-800/50 transition-colors hover:bg-slate-800/60 ${selectedCurrent?.id === current.id ? 'bg-cyan-900/30 border-l-4 border-l-cyan-400' : 'border-l-4 border-l-transparent'}`}
-                 >
-                    <div className="text-sm font-semibold text-slate-200">{current.name.split('(')[0]}</div>
-                    <div className="flex justify-between mt-1">
-                        <span className="text-xs text-slate-500">{current.region}</span>
-                        <span className={`text-[10px] px-1.5 py-0.5 rounded ${current.type === 'Warm' ? 'bg-red-500/10 text-red-400' : 'bg-blue-500/10 text-blue-400'}`}>
-                            {current.type}
-                        </span>
-                    </div>
-                 </button>
-             ))}
-         </div>
-      </div>
+      {/* UI Overlay Components */}
+      <Header />
+      
+      <CurrentsList 
+        currents={MAJOR_CURRENTS}
+        selectedCurrent={selectedCurrent}
+        onSelect={setSelectedCurrent}
+      />
 
       {/* Right Sidebar: Details & AI */}
       <div className="absolute right-0 top-0 h-full z-20 w-full md:w-96 bg-slate-900/80 backdrop-blur-xl border-l border-slate-700 shadow-2xl flex flex-col transform transition-transform duration-300 translate-x-full md:translate-x-0">
